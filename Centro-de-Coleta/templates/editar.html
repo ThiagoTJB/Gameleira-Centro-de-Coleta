@@ -1,15 +1,42 @@
 {% extends 'base.html' %}{% block title %}Editar coleta | Gameleira{% endblock %}{% block content %}
-<section class="page-heading"><div><p class="eyebrow">Registro #{{ coleta.id }}</p><h1>Editar coleta</h1><p class="subtle">Atualize as informações do registro.</p></div><a class="button secondary" href="{{ url_for('inicio') }}">Voltar ao painel</a></section>
-<section class="form-card"><form method="post"><div class="form-grid">
-<div class="field"><label for="catador">Nome do catador *</label><input id="catador" name="catador" value="{{ coleta.catador }}" required maxlength="100"></div>
-<div class="field"><label for="material">Material *</label><select id="material" name="material" required>{% for m in materiais %}<option {% if coleta.material==m %}selected{% endif %}>{{ m }}</option>{% endfor %}</select></div>
-<div class="field"><label for="peso_kg">Peso (kg) *</label><input id="peso_kg" name="peso_kg" type="number" min="0.01" step="0.01" value="{{ coleta.peso_kg }}" required></div>
-<div class="field"><label for="valor_kg">Valor por kg (R$)</label><input id="valor_kg" name="valor_kg" type="number" min="0" step="0.01" value="{{ coleta.valor_kg }}"></div>
-<div class="field wide"><label for="local_coleta">Local da coleta *</label><input id="local_coleta" name="local_coleta" value="{{ coleta.local_coleta }}" required maxlength="150"></div>
-<div class="field"><label for="rota">Rota</label><input id="rota" name="rota" value="{{ coleta.rota or '' }}" maxlength="100"></div>
-<div class="field"><label for="data_coleta">Data *</label><input id="data_coleta" name="data_coleta" type="date" value="{{ coleta.data_coleta }}" required></div>
-<div class="field"><label for="status">Situação</label><select id="status" name="status">{% for s in status_validos %}<option {% if coleta.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></div>
-<div class="field"><label for="pagamento_status">Pagamento</label><select id="pagamento_status" name="pagamento_status">{% for p in pagamentos_validos %}<option {% if coleta.pagamento_status==p %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></div>
-<div class="field full"><label for="observacoes">Observações</label><textarea id="observacoes" name="observacoes" maxlength="1000">{{ coleta.observacoes or '' }}</textarea></div>
-</div><p class="subtle">Valor total calculado automaticamente: <strong>{{ coleta.valor_total|moeda }}</strong> (peso × valor por kg).</p><div class="form-actions"><a class="button secondary" href="{{ url_for('inicio') }}">Cancelar</a><button class="button" type="submit">Salvar alterações</button></div></form></section>
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Registro #{{ coleta.id }}</p>
+        <h1>Editar coleta</h1>
+        <p class="subtle">Atualize as informações do registro.</p>
+    </div><a class="button secondary" href="{{ url_for('inicio') }}">Voltar ao painel</a>
+</section>
+<section class="form-card">
+    <form method="post">
+        <div class="form-grid">
+            <div class="field"><label for="catador">Nome do catador *</label><input id="catador" name="catador"
+                    value="{{ coleta.catador }}" required maxlength="100"></div>
+            <div class="field"><label for="material">Material *</label><select id="material" name="material" required>{%
+                    for m in materiais %}<option {% if coleta.material==m %}selected{% endif %}>{{ m }}</option>{%
+                    endfor %}</select></div>
+            <div class="field"><label for="peso_kg">Peso (kg) *</label><input id="peso_kg" name="peso_kg" type="number"
+                    min="0.01" step="0.01" value="{{ coleta.peso_kg }}" required></div>
+            <div class="field"><label for="valor_kg">Valor por kg (R$)</label><input id="valor_kg" name="valor_kg"
+                    type="number" min="0" step="0.01" value="{{ coleta.valor_kg }}"></div>
+            <div class="field wide"><label for="local_coleta">Local da coleta *</label><input id="local_coleta"
+                    name="local_coleta" value="{{ coleta.local_coleta }}" required maxlength="150"></div>
+            <div class="field"><label for="rota">Rota</label><input id="rota" name="rota"
+                    value="{{ coleta.rota or '' }}" maxlength="100"></div>
+            <div class="field"><label for="data_coleta">Data *</label><input id="data_coleta" name="data_coleta"
+                    type="date" value="{{ coleta.data_coleta }}" required></div>
+            <div class="field"><label for="status">Situação</label><select id="status" name="status">{% for s in
+                    status_validos %}<option {% if coleta.status==s %}selected{% endif %}>{{ s }}</option>{% endfor
+                    %}</select></div>
+            <div class="field"><label for="pagamento_status">Pagamento</label><select id="pagamento_status"
+                    name="pagamento_status">{% for p in pagamentos_validos %}<option {% if coleta.pagamento_status==p
+                        %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></div>
+            <div class="field full"><label for="observacoes">Observações</label><textarea id="observacoes"
+                    name="observacoes" maxlength="1000">{{ coleta.observacoes or '' }}</textarea></div>
+        </div>
+        <p class="subtle">Valor total calculado automaticamente: <strong>{{ coleta.valor_total|moeda }}</strong> (peso ×
+            valor por kg).</p>
+        <div class="form-actions"><a class="button secondary" href="{{ url_for('inicio') }}">Cancelar</a><button
+                class="button" type="submit">Salvar alterações</button></div>
+    </form>
+</section>
 {% endblock %}

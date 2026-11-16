@@ -1,5 +1,33 @@
 {% extends 'base.html' %}{% block title %}Histórico | Gameleira{% endblock %}{% block content %}
-<section class="page-heading"><div><p class="eyebrow">Rastreabilidade</p><h1>Histórico geral</h1><p class="subtle">Consulte cadastros, edições, mudanças de situação e pagamentos.</p></div><a class="button secondary" href="{{ url_for('inicio') }}">Voltar ao painel</a></section>
-<section class="panel"><h2>Atividades recentes</h2>{% if registros %}<div class="timeline">{% for r in registros %}<article class="timeline-item"><strong>{{ r.acao }}{% if r.coleta_id %} · Coleta #{{ r.coleta_id }}{% endif %}</strong><p>{{ r.descricao }}</p><small class="muted">{{ r.data_hora }}{% if r.catador %} · {{ r.catador }}{% endif %}</small>{% if r.coleta_id %}<p><a href="{{ url_for('historico_coleta', id=r.coleta_id) }}">Ver histórico da coleta</a></p>{% endif %}</article>{% endfor %}</div>{% else %}<div class="empty">Ainda não há atividades registradas.</div>{% endif %}</section>
-<section class="panel"><h2>Coletas arquivadas</h2>{% if arquivadas %}<div class="archive-list">{% for c in arquivadas %}<div class="archive-item"><div><strong>#{{ c.id }} · {{ c.catador }}</strong><div class="muted">{{ c.material }} · {{ '%.2f'|format(c.peso_kg)|replace('.', ',') }} kg · {{ c.data_coleta }}</div></div><div class="actions"><a class="button small secondary" href="{{ url_for('historico_coleta', id=c.id) }}">Ver histórico</a><form method="post" action="{{ url_for('excluir_permanente', id=c.id) }}" data-confirm="Excluir permanentemente esta coleta e todo o histórico? Esta ação não pode ser desfeita."><button class="button small danger" type="submit">Excluir permanentemente</button></form></div></div>{% endfor %}</div>{% else %}<p class="muted">Nenhuma coleta arquivada.</p>{% endif %}</section>
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Rastreabilidade</p>
+        <h1>Histórico geral</h1>
+        <p class="subtle">Consulte cadastros, edições, mudanças de situação e pagamentos.</p>
+    </div><a class="button secondary" href="{{ url_for('inicio') }}">Voltar ao painel</a>
+</section>
+<section class="panel">
+    <h2>Atividades recentes</h2>{% if registros %}<div class="timeline">{% for r in registros %}<article
+            class="timeline-item"><strong>{{ r.acao }}{% if r.coleta_id %} · Coleta #{{ r.coleta_id }}{% endif
+                %}</strong>
+            <p>{{ r.descricao }}</p><small class="muted">{{ r.data_hora }}{% if r.catador %} · {{ r.catador }}{% endif
+                %}</small>{% if r.coleta_id %}<p><a href="{{ url_for('historico_coleta', id=r.coleta_id) }}">Ver
+                    histórico da coleta</a></p>{% endif %}
+        </article>{% endfor %}</div>{% else %}<div class="empty">Ainda não há atividades registradas.</div>{% endif %}
+</section>
+<section class="panel">
+    <h2>Coletas arquivadas</h2>{% if arquivadas %}<div class="archive-list">{% for c in arquivadas %}<div
+            class="archive-item">
+            <div><strong>#{{ c.id }} · {{ c.catador }}</strong>
+                <div class="muted">{{ c.material }} · {{ '%.2f'|format(c.peso_kg)|replace('.', ',') }} kg · {{
+                    c.data_coleta }}</div>
+            </div>
+            <div class="actions"><a class="button small secondary" href="{{ url_for('historico_coleta', id=c.id) }}">Ver
+                    histórico</a>
+                <form method="post" action="{{ url_for('excluir_permanente', id=c.id) }}"
+                    data-confirm="Excluir permanentemente esta coleta e todo o histórico? Esta ação não pode ser desfeita.">
+                    <button class="button small danger" type="submit">Excluir permanentemente</button></form>
+            </div>
+        </div>{% endfor %}</div>{% else %}<p class="muted">Nenhuma coleta arquivada.</p>{% endif %}
+</section>
 {% endblock %}

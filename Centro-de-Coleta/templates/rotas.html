@@ -1,4 +1,19 @@
 {% extends 'base.html' %}{% block title %}Rotas | Gameleira{% endblock %}{% block content %}
-<section class="page-heading"><div><p class="eyebrow">Organização das coletas</p><h1>Rotas de coleta</h1><p class="subtle">Visão agrupada das rotas informadas nos registros de coleta.</p></div><a class="button" href="{{ url_for('inicio') }}#nova-coleta">+ Registrar coleta</a></section>
-{% if rotas %}<section class="route-grid">{% for rota in rotas %}<article class="route-card"><p class="eyebrow">Rota</p><strong>{{ rota.nome_rota }}</strong><div class="route-metrics"><span>{{ rota.quantidade }} coleta(s)</span><span>{{ '%.2f'|format(rota.peso)|replace('.', ',') }} kg</span></div><p class="muted">{{ rota.concluidas }} concluída(s)</p></article>{% endfor %}</section>{% else %}<section class="panel empty"><h2>Nenhuma rota cadastrada</h2><p>Informe o nome da rota ao registrar uma coleta para ela aparecer aqui.</p><a class="button" href="{{ url_for('inicio') }}#nova-coleta">Cadastrar coleta</a></section>{% endif %}
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Organização das coletas</p>
+        <h1>Rotas de coleta</h1>
+        <p class="subtle">Visão agrupada das rotas informadas nos registros de coleta.</p>
+    </div><a class="button" href="{{ url_for('inicio') }}#nova-coleta">+ Registrar coleta</a>
+</section>
+{% if rotas %}<section class="route-grid">{% for rota in rotas %}<article class="route-card">
+        <p class="eyebrow">Rota</p><strong>{{ rota.nome_rota }}</strong>
+        <div class="route-metrics"><span>{{ rota.quantidade }} coleta(s)</span><span>{{
+                '%.2f'|format(rota.peso)|replace('.', ',') }} kg</span></div>
+        <p class="muted">{{ rota.concluidas }} concluída(s)</p>
+    </article>{% endfor %}</section>{% else %}<section class="panel empty">
+    <h2>Nenhuma rota cadastrada</h2>
+    <p>Informe o nome da rota ao registrar uma coleta para ela aparecer aqui.</p><a class="button"
+        href="{{ url_for('inicio') }}#nova-coleta">Cadastrar coleta</a>
+</section>{% endif %}
 {% endblock %}

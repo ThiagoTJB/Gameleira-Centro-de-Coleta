@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123b2b"><title>{% block title %}Gameleira – Centro de Coleta{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<header class="topbar"><div class="topbar-inner">
+  <a class="brand" href="{{ url_for('inicio') }}"><span class="brand-mark" aria-hidden="true">G</span><span><strong>Gameleira</strong><small>Centro de Coleta</small></span></a>
+  <nav aria-label="Navegação principal"><a href="{{ url_for('inicio') }}" {% if request.endpoint == 'inicio' %}aria-current="page"{% endif %}>Painel</a><a href="{{ url_for('rotas') }}" {% if request.endpoint == 'rotas' %}aria-current="page"{% endif %}>Rotas</a><a href="{{ url_for('historico_geral') }}" {% if request.endpoint == 'historico_geral' %}aria-current="page"{% endif %}>Histórico</a></nav>
+</div></header>
+<main id="conteudo" class="container">
+  {% with mensagens = get_flashed_messages(with_categories=true) %}{% if mensagens %}<div class="alerts" aria-live="polite">{% for categoria, mensagem in mensagens %}<div class="alert {{ categoria }}">{{ mensagem }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer>Gameleira – Centro de Coleta <span>Organização e valorização do trabalho dos catadores.</span></footer>
+<script>
+document.querySelectorAll('form[data-confirm]').forEach(form => form.addEventListener('submit', event => { if (!confirm(form.dataset.confirm)) event.preventDefault(); }));
+</script>
+</body></html>
